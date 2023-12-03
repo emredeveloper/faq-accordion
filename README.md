@@ -48,4 +48,4 @@ Projeye katkıda bulunmak istiyorsanız, lütfen bir [işlem isteği (Pull Reque
 Bu proje [MIT Lisansı](./LICENSE) ile lisanslanmıştır.
 
 ---
-**Geliştirici:** Emre Yılmaz
+**Geliştirici:** Cihat Emre Karataş
