@@ -4,7 +4,6 @@ import LoginModal from "./LoginModal";
 import { Button } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./style.css";
-
 export default function App() {
   const [newQuestion, setNewQuestion] = useState("");
   const [newInfo, setNewInfo] = useState("");
