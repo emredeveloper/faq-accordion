@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import Question from "./Question";
 import "./style.css";
 import Login from "./Login";
-
 export default function App() {
   const [newQuestion, setNewQuestion] = useState("");
   const [newInfo, setNewInfo] = useState("");
@@ -89,6 +88,24 @@ export default function App() {
               </>
           )}
         </div>
+        <footer>
+          <p>
+            © 2023 Project 2: FAQ/Accordion | Developed by{" "}
+            <a
+                href="https://github.com/emredeveloper"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+              <img
+                  src= "assets/images/github.svg"
+                  alt="Emre Developer"
+                  height="20"
+                  width="20"
+              />
+
+            </a>
+          </p>
+        </footer>
       </>
   );
 }
