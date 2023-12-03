@@ -13,6 +13,9 @@ Bu projeyi çalıştırmak için aşağıdaki yazılımlara ihtiyacınız vardı
 - [Node.js](https://nodejs.org/)
 - [npm](https://www.npmjs.com/)
 
+
+[Proje Demo](https://faq-accordion-h44ug8pxd-emredeveloper.vercel.app/)
+ 
 ### Kurulum
 
 1. Bu depoyu yerel makinenize klonlayın.
@@ -20,5 +23,4 @@ Bu projeyi çalıştırmak için aşağıdaki yazılımlara ihtiyacınız vardı
 ```bash
 git clone https://github.com/emredeveloper/faq-accordion.git
 
-[Proje Demo](https://faq-accordion-h44ug8pxd-emredeveloper.vercel.app/)
 
