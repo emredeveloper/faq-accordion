@@ -1,11 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Question from "./Question";
+import LoginModal from "./LoginModal";
+import { Button } from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
 import "./style.css";
-import Login from "./Login";
+
 export default function App() {
   const [newQuestion, setNewQuestion] = useState("");
   const [newInfo, setNewInfo] = useState("");
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [showLoginModal, setShowLoginModal] = useState(false);
+  const [loggedInUser, setLoggedInUser] = useState(null);
+
+  // Önceden belirlenmiş e-posta ve şifre
+  const predefinedEmail = "test@gmail.com";
+  const predefinedPassword = "123";
+
+  useEffect(() => {
+    // Sayfa yüklendiğinde otomatik giriş yap
+    handleLogin(predefinedEmail);
+  }, []);
 
   const handleQuestionSubmit = () => {
     // Yeni soruyu ve bilgiyi listeye ekleyen fonksiyon
@@ -33,79 +46,59 @@ export default function App() {
     // Diğer sorular...
   ]);
 
-  const handleLogin = () => {
-    // Burada kullanıcı girişi kontrolü yapılabilir
-    // Eğer başarılı ise isLoggedIn state'ini true yapabilirsiniz
-    setIsLoggedIn(true);
+  const handleLogin = (userEmail) => {
+    // Giriş yapan kullanıcıyı setLoggedInUser ile güncelle
+    setLoggedInUser(userEmail);
+  };
+
+  const handleLogout = () => {
+    // Çıkış yapınca setLoggedInUser'ı null yaparak kullanıcıyı temizle
+    setLoggedInUser(null);
   };
 
   return (
       <>
         <div className="header">
           <h1>Project 2: FAQ/Accordion</h1>
-          <div className="user-menu">
-            {isLoggedIn ? (
-                <>
-                  <span>Hoş geldiniz!</span>
-
-                </>
-            ) : (
-                <>
-                  <button onClick={() => setIsLoggedIn(true)}>Giriş Yap</button>
-                  <button>Kayıt Ol</button>
-                </>
-            )}
-          </div>
-        </div>
-        <div className="container">
-          {isLoggedIn && (
-              <>
-                <h2>Frequently Asked Questions</h2>
-                <div className="questions">
-                  {questions.map((question) => (
-                      <Question
-                          key={question.id}
-                          question={question.title}
-                          info={question.info}
-                      />
-                  ))}
-                </div>
-                <div className="add-question">
-                  {/* Yeni soru eklemek için form */}
-                  <input
-                      type="text"
-                      placeholder="New question"
-                      value={newQuestion}
-                      onChange={(e) => setNewQuestion(e.target.value)}
-                  />
-                  <textarea
-                      placeholder="Answer"
-                      value={newInfo}
-                      onChange={(e) => setNewInfo(e.target.value)}
-                  />
-                  <button onClick={handleQuestionSubmit}>Submit</button>
-                </div>
-              </>
+          {loggedInUser ? (
+              <div className="user-menu">
+                <span>Giriş yapan kullanıcı: {loggedInUser}</span>
+                <Button variant="danger" onClick={handleLogout}>
+                  Çıkış Yap
+                </Button>
+              </div>
+          ) : (
+              <Button variant="primary" onClick={() => setShowLoginModal(true)}>
+                Giriş Yap
+              </Button>
           )}
         </div>
-        <footer>
-          <p>
-            © 2023 Project 2: FAQ/Accordion | Developed by{" "}
-            <a
-                href="https://github.com/emredeveloper"
-                target="_blank"
-                rel="noopener noreferrer"
-            >
-              <img
-                  src= "assets/images/github.svg"
-                  alt="Emre Developer"
-                  height="20"
-                  width="20"
-              />
 
-            </a>
-          </p>
-        </footer>
+        <LoginModal show={showLoginModal} onHide={() => setShowLoginModal(false)} onLogin={handleLogin} />
+
+        <div className="container">
+          <h2>Frequently Asked Questions</h2>
+          <div className="questions">
+            {questions.map((question) => (
+                <Question key={question.id} question={question.title} info={question.info} />
+            ))}
+          </div>
+          <div className="add-question">
+            {/* Yeni soru eklemek için form */}
+            <input
+                type="text"
+                placeholder="New question"
+                value={newQuestion}
+                onChange={(e) => setNewQuestion(e.target.value)}
+            />
+            <textarea
+                placeholder="Answer"
+                value={newInfo}
+                onChange={(e) => setNewInfo(e.target.value)}
+            />
+            <button onClick={handleQuestionSubmit}>Submit</button>
+          </div>
+        </div>
       </>
   );
 }
